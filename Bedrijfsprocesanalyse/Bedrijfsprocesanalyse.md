@@ -1,11 +1,11 @@
-# Bedrijfsprocessanalyse — BI-Rapportageproces Chocolate Firm
+# Bedrijfsprocessanalyse — Mobiele Applicatie The Chocolate Firm
 
 **Ist · Soll · Knelpunten · Gap-analyse · SIPOC**
 
 | | |
 |---|---|
 | **Document** | Bedrijfsprocessanalyse |
-| **Proces** | BI-rapportage & data-analyse |
+| **Proces** | Klantbeleving via mobiele applicatie |
 | **Versie** | 1.0 — Definitief concept |
 | **Methode** | SIPOC + Ist/Soll + Knelpunten + Gap |
 
@@ -13,16 +13,16 @@
 
 ## 1. Procesafbakening & Scope
 
-Het te analyseren proces betreft de bedrijfsinterne rapportage- en data-analysecyclus van de Chocolate Firm. Dit proces loopt van het moment dat operationele data wordt gegenereerd in de bronsystemen (Odoo ERP, productiesystemen, CRM) tot en met het moment dat managers en medewerkers op basis van actuele inzichten beslissingen kunnen nemen.
+Het te analyseren proces betreft de klantbeleving en serviceverlening van The Chocolate Firm richting haar klanten. Dit proces loopt van het moment dat een klant een product aankoopt tot en met het moment dat de klant volledig bediend wordt: productinformatie raadplegen, bestellingen plaatsen, klachten indienen, gepersonaliseerde aanbevelingen ontvangen en deelnemen aan de community.
 
 | | |
 |---|---|
-| **Proceseigenaar** | Financieel directeur / MT |
-| **Processtart** | Data gegenereerd in operationele systemen (orders, productie, inkoop) |
-| **Proceseinde** | Manager of MT-lid heeft actueel inzicht en kan beslissing nemen |
-| **In scope** | Dataverzameling, -verwerking, dashboarding, rapportage, besluitvorming (marges, cashflow, smaaktrends, voorraad) |
-| **Buiten scope** | Operationele invoer in Odoo, facturatie, HR-processen, mobiele app klantprocessen |
-| **Betrokken systemen** | Odoo ERP, Excel, CRM, productiesystemen (maatwerk), BI-tool (to-be) |
+| **Proceseigenaar** | Product Owner / MT The Chocolate Firm |
+| **Processtart** | Klant koopt een chocoladeproduct en wil informatie, service of ondersteuning |
+| **Proceseinde** | Klant heeft inzicht in productinfo, ontvangt service en is betrokken bij de merkbeleving |
+| **In scope** | Productregistratie, notificaties, contentbibliotheek, bestellen, klachtenafhandeling, AI-chatbot, personalisatie, community, winkelzoeker, events, privacy & beveiliging |
+| **Buiten scope** | Interne ERP-invoer, HR-processen, facturatiebeheer, BI-rapportage voor medewerkers |
+| **Betrokken systemen** | Odoo ERP, Odoo CRM, BI-tool, CMS, geolocatie API, AI-module, notificatieservice |
 
 ---
 
@@ -30,13 +30,11 @@ Het te analyseren proces betreft de bedrijfsinterne rapportage- en data-analysec
 
 | S — Suppliers | I — Inputs | P — Process | O — Outputs | C — Customers |
 |---|---|---|---|---|
-| Odoo ERP | Exportbestanden (CSV/Excel) uit Odoo | 1. Exporteer data uit Odoo | Excel-rapport (statisch) | MT / Directie |
-| Productiesystemen | Handmatige invoer medewerkers | 2. Kopieer naar Excel | E-mail met bijlage | Afdelingsmanagers |
-| CRM-systeem | Verkoopdata (losse bestanden) | 3. Combineer bronnen handmatig | Presentatie (PowerPoint) | Financieel medewerkers |
-| Inkoopafdeling | Productiecijfers (maatwerk export) | 4. Bouw/update grafieken | Mondelinge toelichting | Inkoop / Verkoop |
-| Verkoopafdeling | Klantendata uit CRM | 5. Controleer formules | | |
-| | | 6. Deel bestand via e-mail | | |
-| | | 7. MT presenteert rapport | | |
+| Odoo ERP | Klantaankopen (kassabon, batchnummer) | 1. Klant zoekt productinfo op via website of verpakking | Statische productinformatie (PDF, website) | Klanten (B2C) |
+| Odoo CRM | Klachten via e-mail of telefoon | 2. Klant belt of mailt klantenservice met vragen of klachten | E-mailbevestiging klacht | B2B-klanten |
+| Klantenservice | Vragen via e-mail of telefoon | 3. Medewerker zoekt handmatig info op in ERP en reageert | Telefonische toelichting | Klantenservicemedewerkers |
+| Marketingafdeling | Promotiemateriaal (PDF, bulk-e-mail) | 4. Medewerker registreert klacht handmatig in CRM | Promotie-e-mails (bulk, niet gepersonaliseerd) | |
+| Verkoopafdeling | Bestellingen via telefoon of e-mail | 5. Verkoopmedewerker verwerkt bestelling handmatig in ERP | | |
 
 ---
 
@@ -46,23 +44,21 @@ Het te analyseren proces betreft de bedrijfsinterne rapportage- en data-analysec
 
 | # | Processtap | Beschrijving (Ist) | Actor | Systeem/Tool | Frequentie |
 |---|---|---|---|---|---|
-| 1 | Data exporteren | Medewerker exporteert handmatig data uit Odoo als CSV of Excel-bestand | Financieel medewerker | Odoo ERP → CSV/Excel | Wekelijks / maandelijks |
-| 2 | Data samenvoegen | Exportbestanden uit Odoo, CRM en productie worden handmatig samengevoegd in één Excel-werkmap | Financieel medewerker | Excel (handmatig) | Per rapportageperiode |
-| 3 | Berekeningen uitvoeren | Marges, cashflows en KPI's worden berekend via handmatige Excel-formules. Formules worden soms gekopieerd zonder controle. | Financieel medewerker | Excel | Per rapportageperiode |
-| 4 | Visualisaties maken | Grafieken en tabellen worden handmatig bijgewerkt of opnieuw aangemaakt in Excel of PowerPoint | Financieel medewerker | Excel / PowerPoint | Per rapport |
-| 5 | Kwaliteitscontrole | Rapport wordt steekproefsgewijs gecheckt door een collega. Geen gestructureerd validatieproces. | Senior medewerker | Geen formeel systeem | Ad hoc |
-| 6 | Distribueren | Rapport wordt als e-mailbijlage verspreid. Er bestaan meerdere versies tegelijkertijd in de omgeving. | Financieel medewerker | E-mail / SharePoint | Wekelijks / maandelijks |
-| 7 | Besluitvorming | MT bespreekt rapport in vergadering. Aanvullende vragen leiden opnieuw tot handmatige Excel-aanpassingen. | MT / Directie | PowerPoint / mondeling | Maandelijks / kwartaal |
+| 1 | Productinfo opzoeken | Klant zoekt informatie op via de website, verpakking of belt de klantenservice. Er is geen centraal digitaal klantplatform. | Klant / klantenservicemedewerker | Website, telefoon | Per behoefte |
+| 2 | Klacht melden | Klant stuurt een e-mail of belt de klantenservice. Medewerker registreert de klacht handmatig in het CRM-systeem. | Klant / klantenservicemedewerker | E-mail, telefoon, Odoo CRM | Per klacht |
+| 3 | Bestelling plaatsen | B2B-klant belt of mailt een verkoopmedewerker. De order wordt handmatig ingevoerd in Odoo ERP. | B2B-klant / verkoopmedewerker | Telefoon, e-mail, Odoo ERP | Per bestelling |
+| 4 | Promoties ontvangen | Marketing verstuurt bulk-e-mails zonder koppeling aan aankoophistorie of persoonlijke voorkeuren. | Marketingafdeling | E-mailclient | Periodiek |
+| 5 | Evenementaanmelding | Klant belt of mailt om zich in te schrijven voor een workshop of proeverij. Bevestiging wordt per e-mail verstuurd. | Klant / medewerker | Telefoon, e-mail | Per event |
 
 ### 3.2 Doorlooptijd Ist
 
 | Stap | Minimale tijd | Maximale tijd | Opmerking |
 |---|---|---|---|
-| Exporteren uit Odoo | 30 min | 2 uur | Afhankelijk van periode en aantal systemen |
-| Samenvoegen bronnen | 1 uur | 4 uur | Sterk variabel: inconsistente kolomnamen, ontbrekende data |
-| Berekeningen & controle | 1 uur | 3 uur | Formulefouten komen regelmatig voor |
-| Visualisaties & layout | 30 min | 2 uur | Elke keer opnieuw handmatig aanpassen |
-| **Totale cyclustijd** | **3 uur** | **11+ uur** | Per rapportageperiode, per medewerker |
+| Productinfo opzoeken | 5 min | 30+ min | Afhankelijk van beschikbaarheid klantenservicemedewerker |
+| Klacht registreren en beantwoorden | 15 min | 2 uur | Volledig handmatige verwerking, geen automatisering |
+| Bestelling invoeren (B2B) | 10 min | 1 uur | Afhankelijk van beschikbaarheid verkoopmedewerker |
+| Evenementaanmelding verwerken | 10 min | 30 min | Handmatige registratie en bevestiging per e-mail |
+| **Totale servicecyclus per klantcontact** | **30 min** | **3+ uur** | Per interactie, per medewerker |
 
 ---
 
@@ -70,14 +66,14 @@ Het te analyseren proces betreft de bedrijfsinterne rapportage- en data-analysec
 
 | # | Knelpunt | Beschrijving | Categorie | Impact |
 |---|---|---|---|---|
-| K1 | Excel-afhankelijkheid | Het gehele rapportageproces draait op Excel. Er is geen centrale databron, geen versiebeheer en geen rolgebaseerde toegang. | Proces | Hoge foutgevoeligheid, veel tijdsverlies, geen schaalbaarheid |
-| K2 | Geen real-time data | Data is altijd verouderd op het moment van rapportage. Een export is een momentopname, niet een levend beeld. | Data | Beslissingen op basis van verouderde informatie |
-| K3 | Versnipperde databronnen | Odoo, CRM en productiesystemen zijn niet gekoppeld. Medewerkers combineren exports handmatig, met inconsistentie als gevolg. | Integratie | Fouten bij samenvoegen, dubbel werk, tijdsverlies |
-| K4 | Versieproblematiek | Meerdere Excel-versies circuleren tegelijkertijd via e-mail. Onduidelijk welke versie de 'waarheid' is. | Governance | Foutieve besluitvorming, verwarring, herwerk |
-| K5 | Geen dataisolatie | Geen rolgebaseerde toegangscontrole. Medewerkers zien potentieel data van andere afdelingen of hebben geen toegang tot wat ze nodig hebben. | Beveiliging | Privacyrisico, AVG-kwetsbaarheid |
-| K6 | Hoge doorlooptijd | Rapportage kost per medewerker 3–11 uur per periode. Dit is niet schaalbaar naarmate het bedrijf groeit. | Efficiency | Verlies van productieve uren, te trage besluitcyclus |
-| K7 | Geen MT-overzicht | Er is geen overkoepelend dashboard voor de directie. KPI's worden pas zichtbaar na handmatige rapportage. | Management | Beperkt stuurvermogen, reactief in plaats van proactief |
-| K8 | Geen adoptie, ontevreden gebruikers | Medewerkers omzeilen systemen en werken buiten Odoo om. Kennis is persoonsgebonden en niet geborgd. | Mensen | Kennisrisico, inconsistentie, weerstand bij verandering |
+| K1 | Geen centraal klantplatform | Klanten hebben geen digitaal platform. Alle interacties verlopen via telefoon, e-mail of website zonder integratie tussen systemen. | Proces | Hoge werkdruk klantenservice, trage afhandeling, geen schaalbaarheid |
+| K2 | Geen productregistratie mogelijk | Klanten kunnen aangekochte producten niet registreren. Er is geen inzicht in houdbaarheid, allergenen of herkomst via een digitaal kanaal. | Data | Gemiste klantenservice, hogere klachtkans bij verlopen producten |
+| K3 | Geen gepersonaliseerde communicatie | Marketing verstuurt bulk-e-mails zonder koppeling aan aankoophistorie. Klanten ontvangen irrelevante informatie. | Marketing | Lage klantbetrokkenheid, hoog afmeldpercentage |
+| K4 | Handmatige klachtenverwerking | Klachten worden handmatig geregistreerd en opgevolgd. De klant heeft geen statusinzage en er is geen automatische probleemherkenning. | Efficiency | Lange doorlooptijd, lage klanttevredenheid |
+| K5 | Geen 24/7 klantenservice | Klantenservice is alleen bereikbaar tijdens openingstijden. Buiten kantooruren zijn klanten volledig op zichzelf aangewezen. | Service | Klantfrustatie, gemiste vragen en klachten buiten openingstijden |
+| K6 | Geen community of betrokkenheid | Er is geen platform waar klanten recepten kunnen delen, smaakervaringen uitwisselen of deelnemen aan challenges. | Klantloyaliteit | Lage herhaalaankopen, beperkte merkbinding |
+| K7 | Geen digitale besteloptie | B2B-klanten zijn afhankelijk van verkoopmedewerkers voor bestellingen. Self-service is niet mogelijk. | Efficiency | Vertraging bij bestellingen, onnodige druk op verkoopteam |
+| K8 | Geen inzicht in herkomst en duurzaamheid | Klanten kunnen de herkomstreis van hun product niet digitaal volgen. Duurzaamheidsinformatie is niet centraal beschikbaar. | Transparantie | Gemiste differentiatie op duurzaamheid, minder klantvertrouwen |
 
 ---
 
@@ -85,13 +81,13 @@ Het te analyseren proces betreft de bedrijfsinterne rapportage- en data-analysec
 
 | S — Suppliers | I — Inputs | P — Process | O — Outputs | C — Customers |
 |---|---|---|---|---|
-| Odoo ERP (API) | Gestructureerde transactiedata via API | 1. Automatische data-extractie (ETL) | Real-time BI-dashboard (per rol) | MT / Directie |
-| CRM (API-sync) | Real-time voorraad & orderdata | 2. Laden in datawarehouse | MT KPI-overzichtsdashboard | Afdelingsmanagers |
-| Productiesystemen (API) | Klant- en smaakvoorkeurdata | 3. Datakwaliteitscheck (automatisch) | Automatisch gegenereerde rapporten | Financieel medewerkers |
-| Externe marktdata (optioneel) | Productiecijfers (automatisch via API) | 4. Dashboard automatisch vernieuwd | Exportmogelijkheid (PDF/Excel) | Inkoop / Verkoop |
-| | | 5. Gebruiker opent BI-tool (self-service) | Alerts bij afwijkende KPI's | Productontwikkeling |
-| | | 6. Filter/drill-down op eigen afdelingsdata | | |
-| | | 7. Inzicht direct beschikbaar voor besluit | | |
+| Odoo ERP (API) | QR-code scan of batchnummer | 1. Klant registreert product via app (QR of handmatig) | Persoonlijk productdashboard | Klanten (B2C) |
+| Odoo CRM (API) | Klantprofiel en aankoophistorie | 2. App haalt productdata op via Odoo ERP-API | Pushnotificaties (houdbaarheid, releases, duurzaamheid) | B2B-klanten |
+| CMS | Content (recepten, video's, tutorials) | 3. Klant raadpleegt digitale productkaart en contentbibliotheek | Digitale productkaarten en gepersonaliseerde recepten | Klantenservice (minder belasting) |
+| AI-module | Chatbotinteracties en CRM-profiel | 4. Klant bestelt product of dient klacht in via app | Orderbevestiging en real-time klachtstatus | Productontwikkeling |
+| Geolocatie API | Locatiedata klant | 5. AI-chatbot beantwoordt vragen 24/7 op basis van CRM-profiel | Gepersonaliseerde productaanbevelingen | Marketing |
+| Notificatieservice | Eventdata en productreleases | 6. App toont gepersonaliseerde aanbevelingen en exclusieve aanbiedingen | Community-interacties en gamificationbadges | |
+| BI-tool | Geanonimiseerde gebruiksdata | 7. Klant neemt deel aan community, events en Cocoa Journey Tracking | Winkelzoeker en eventoverzicht | |
 
 ---
 
@@ -101,23 +97,25 @@ Het te analyseren proces betreft de bedrijfsinterne rapportage- en data-analysec
 
 | # | Processtap | Beschrijving (Soll) | Actor | Systeem/Tool | Doorlooptijd |
 |---|---|---|---|---|---|
-| 1 | Automatische extractie | ETL-pipeline haalt automatisch data op uit Odoo, CRM en productiesystemen via REST API. Geen handmatige export. | Systeem (automatisch) | ETL / Apache Airflow | Continu / scheduled |
-| 2 | Laden in datawarehouse | Getransformeerde data wordt geladen in een centraal datawarehouse. Validatieregels filteren fouten automatisch. | Systeem (automatisch) | PostgreSQL / DuckDB | Automatisch |
-| 3 | Dashboard vernieuwen | BI-dashboards worden automatisch bijgewerkt op basis van de meest recente data in het datawarehouse. | Systeem (automatisch) | Apache Superset / Metabase | Automatisch |
-| 4 | Self-service analyse | Medewerker logt in op BI-tool, ziet alleen eigen afdelingsdata (RBAC) en gebruikt filters, drill-downs en grafieken. | Medewerker / Manager | BI-tool (browser) | Direct, <1 min |
-| 5 | MT-dashboard raadplegen | MT opent overkoepelend KPI-dashboard. Alle kerncijfers (marge, cashflow, smaaktrend) zijn direct zichtbaar zonder voorbereiding. | MT / Directie | BI-tool MT-dashboard | Direct, <1 min |
-| 6 | Export & rapportage | Indien nodig kan een rapport worden geëxporteerd naar PDF of Excel. Dit vervangt de handmatige opmaak. | Medewerker / Manager | BI-tool (export) | <2 min |
-| 7 | Besluitvorming | MT neemt beslissing op basis van actuele dashboard-data. Aanvullende vragen worden direct beantwoord via drill-down. | MT / Directie | BI-tool / vergadering | Tijdens vergadering |
+| 1 | Productregistratie | Klant scant QR-code of voert batchnummer in. App haalt productdata op via Odoo ERP en toont persoonlijk dashboard met houdbaarheid, allergenen en herkomst. | Klant | Mobiele app, Odoo ERP | < 1 min |
+| 2 | Notificaties ontvangen | App stuurt automatisch pushnotificaties bij naderende houdbaarheidsdatum, nieuwe productreleases en seizoensproducten op basis van ERP-data. | Systeem (automatisch) | Notificatieservice, Odoo ERP | Automatisch |
+| 3 | Productinfo raadplegen | Klant opent digitale productkaart of doorzoekt de contentbibliotheek op allergenen, herkomst, recepten of video's. Zoekresultaat verschijnt binnen 2 seconden. | Klant | Mobiele app, CMS | < 1 min |
+| 4 | Bestelling plaatsen | Klant bestelt product direct via de app. Bestelling wordt verwerkt in Odoo ERP. Klant ontvangt bevestiging en kan bestelstatus volgen in de app. | Klant | Mobiele app, Odoo ERP | < 3 min |
+| 5 | Klacht indienen | Klant dient klacht in via een formulier met foto- of video-bijlage. App herkent automatisch veelvoorkomende problemen en biedt direct een oplossing of registreert de melding voor verdere afhandeling. | Klant | Mobiele app, Odoo CRM | < 5 min |
+| 6 | AI-chatbot raadplegen | Klant stelt een vraag aan de AI-chatbot (24/7 beschikbaar). Chatbot geeft gepersonaliseerd antwoord op basis van CRM-profiel. Bij complexe vragen: doorverwijzing naar live medewerker of terugbelverzoek. | Klant / AI-module | Mobiele app, Odoo CRM | < 2 min |
+| 7 | Aanbevelingen ontvangen | App toont gepersonaliseerde productaanbevelingen op basis van aankoophistorie en BI-data. Klant ontvangt early-access tot limited editions en exclusieve app-aanbiedingen. | Systeem (automatisch) | Mobiele app, BI-tool, Odoo CRM | Automatisch |
+| 8 | Community en events | Klant deelt recept, verdient badges, schrijft zich in voor een event. Bevestiging en herinnering worden automatisch verstuurd. | Klant | Mobiele app, CMS | < 2 min |
 
 ### 6.2 Doorlooptijd Soll (verwacht)
 
 | Stap | Ist (gemiddeld) | Soll (verwacht) | Verbetering |
 |---|---|---|---|
-| Data verzamelen & samenvoegen | 3–6 uur | 0 min (automatisch) | Volledige eliminatie van handmatige stap |
-| Berekeningen & validatie | 1–3 uur | 0 min (automatisch) | Validatieregels in ETL vervangen handmatige controle |
-| Dashboard raadplegen | 30 min–2 uur | <1 minuut | Altijd actueel, direct beschikbaar per rol |
-| Export voor MT-vergadering | 30 min–1 uur | <2 minuten | Automatisch gegenereerd vanuit BI-tool |
-| **Totale cyclustijd** | **5–12 uur** | **<5 minuten** | **~95% reductie in handmatig werk per cyclus** |
+| Productinfo raadplegen | 5–30 min | < 1 min | Direct beschikbaar, geen medewerker nodig |
+| Klacht indienen en registreren | 15 min–2 uur | < 5 min | Automatische herkenning en registratie via app |
+| Bestelling plaatsen (B2B) | 10 min–1 uur | < 3 min | Self-service via app met directe ERP-koppeling |
+| Gepersonaliseerde communicatie | Niet mogelijk | Automatisch | Op basis van aankoophistorie, CRM en BI-data |
+| Evenementaanmelding | 10–30 min | < 2 min | Directe inschrijving via app, automatische bevestiging |
+| **Totale servicecyclus per klantcontact** | **30 min–3+ uur** | **< 10 min** | **~85% reductie in handmatige afhandeling** |
 
 ---
 
@@ -125,31 +123,47 @@ Het te analyseren proces betreft de bedrijfsinterne rapportage- en data-analysec
 
 | Dimensie | Ist (nu) | Soll (gewenst) | Prioriteit | Actie om gap te dichten |
 |---|---|---|---|---|
-| Dataverzameling | Handmatig exporteren uit Odoo (CSV), meerdere bronnen apart | Automatische ETL-pipeline via API, alle bronnen geïntegreerd | Kritiek | Ontwikkel ETL-pipeline; koppel Odoo, CRM en productie-API's aan datawarehouse |
-| Dataactualiteit | Statische snapshot op moment van export, altijd verouderd | Real-time of near-real-time data in dashboards | Kritiek | Stel scheduled ETL in (bijv. elk uur); gebruik webhooks waar Odoo dit ondersteunt |
-| Rapportagetool | Excel, verspreiding via e-mail, geen versiebeheer | Centrale BI-tool met live dashboards en rolgebaseerde toegang | Kritiek | Implementeer Apache Superset of Metabase; migreer bestaande Excel-rapporten naar dashboards |
-| Toegangscontrole | Geen RBAC; iedereen ziet potentieel alle data | RBAC: elke afdeling ziet alleen eigen data, MT ziet alles | Hoog | Configureer rollen en rechten in BI-tool per afdeling en functie |
-| Beveiliging | Geen 2FA, bestanden verspreid via e-mail | 2FA verplicht, encryptie, Europese hosting | Hoog | Activeer 2FA in BI-tool; host op Europese server; stel TLS in voor alle verbindingen |
-| MT-inzicht | Geen overkoepelend dashboard; KPI's pas zichtbaar na handmatige rapportage | Live MT-dashboard met marges, cashflow, KPI's | Hoog | Bouw MT-dashboard als eerste use case; valideer KPI-definitie met MT voor go-live |
-| Gebruikersadoptie | Ontevreden gebruikers, workarounds met Excel buiten systemen om | Brede adoptie, tool gebruikt als standaard voor rapportage | Hoog | Excel-achtige interface (Metabase); betrek eindgebruikers bij ontwerp; bied training aan |
-| Schaalbaarheid | Excel crasht bij grote datasets; geen schaaloptie | Systeem verwerkt grote volumes zonder performanceverlies | Middel | Gebruik DuckDB of PostgreSQL als datawarehouse; test met productievolume vóór go-live |
-| Datakwaliteit | Geen validatie; fouten in formules en kopieerpasta | Automatische validatieregels in ETL; datakwaliteitsrapportage | Middel | Definieer validatieregels per databron; bouw datakwaliteitsdashboard voor beheerteam |
-| Excel-transitie | Excel is enige werktool; medewerkers kennen geen alternatief | Excel blijft mogelijk als exportformaat; invoer via BI-tool of Odoo | Middel | Behoud Excel-exportfunctie als 'vangnet'; stimuleer actief gebruik van dashboards |
+| Klantplatform | Geen digitaal platform; alle contact via telefoon of e-mail | Centrale mobiele app als primair klantkanaal voor alle diensten | Kritiek | Ontwikkel en lanceer mobiele applicatie voor iOS en Android |
+| Productregistratie | Niet mogelijk; geen koppeling met klantprofiel | QR-scan of batchnummer; persoonlijk dashboard met productdetails | Kritiek | Bouw registratieflow met Odoo ERP-koppeling en dashboardweergave |
+| Notificaties | Geen automatische meldingen aan klant | Pushnotificaties op basis van ERP-data (houdbaarheid, releases, duurzaamheid) | Kritiek | Implementeer notificatieservice gekoppeld aan Odoo ERP |
+| Klachtenafhandeling | Handmatig via e-mail of telefoon; geen statusinzage voor klant | In-app formulier met automatische probleemherkenning en statusinzage | Hoog | Bouw klachtenmodule met Odoo CRM-koppeling en trackingfunctie |
+| Klantenservice | Alleen bereikbaar tijdens openingstijden | AI-chatbot 24/7 beschikbaar, aangevuld met live chat tijdens openingstijden | Hoog | Integreer AI-module gekoppeld aan CRM-profiel |
+| Personalisatie | Bulk-e-mails zonder relevantie voor de klant | Gepersonaliseerde aanbevelingen op basis van aankoophistorie en BI-data | Hoog | Koppel BI-tool en Odoo CRM aan aanbevelingsengine in de app |
+| Duurzaamheid & herkomst | Niet digitaal beschikbaar voor de klant | Cocoa Journey Tracking via interactieve tijdlijn per geregistreerd product | Hoog | Bouw herkomstmodule met koppeling aan Odoo ERP en productiesysteem |
+| Community & betrokkenheid | Geen platform voor klantinteractie | Communityforum met gamification (badges, punten, challenges) | Middel | Ontwikkel communitymodule binnen de app |
+| Self-service bestellen | Alleen via verkoopmedewerker (B2B) | Directe bestelling via app gekoppeld aan Odoo ERP met ordertracking | Middel | Bouw bestelmodule met ERP-integratie |
+| Privacy & beveiliging | Geen 2FA, geen in-app privacybeheer voor klant | 2FA verplicht, AVG-conform, end-to-end encryptie, transparant privacybeleid | Middel | Implementeer authenticatieservice en privacyinstellingen in de app |
 
 ### 7.1 Prioriteitenlegenda
 
 | Prioriteit | Betekenis | Gaps |
 |---|---|---|
-| Kritiek | Direct aanpakken — blokkeert go-live | Dataverzameling, Dataactualiteit, Rapportagetool |
-| Hoog | Aanpakken in fase 1–2 | Toegangscontrole, Beveiliging, MT-inzicht, Adoptie |
-| Middel | Aanpakken in fase 2–3 | Schaalbaarheid, Datakwaliteit, Excel-transitie |
+| Kritiek | Direct aanpakken — blokkeert go-live | Klantplatform, Productregistratie, Notificaties |
+| Hoog | Aanpakken in fase 1–2 | Klachtenafhandeling, Klantenservice, Personalisatie, Duurzaamheid & herkomst |
+| Middel | Aanpakken in fase 2–3 | Community, Self-service bestellen, Privacy & beveiliging |
 
 ---
 
 ## 8. Conclusie
 
-De gap-analyse toont aan dat het huidige rapportageproces structureel tekortschiet op drie kritieke dimensies: **dataverzameling is volledig handmatig**, **data is nooit actueel** en **er is geen centrale rapportagetool met rolgebaseerde toegang**. Deze drie gaps blokkeren een succesvolle go-live en moeten als eerste worden aangepakt.
+De gap-analyse toont aan dat het huidige klantproces structureel tekortschiet op drie kritieke dimensies: **er is geen centraal digitaal klantplatform**, **productregistratie is niet mogelijk** en **klanten ontvangen geen automatische notificaties**. Deze drie gaps blokkeren een succesvolle go-live en moeten als eerste worden aangepakt.
 
-De overige gaps (beveiliging, adoptie, schaalbaarheid) zijn oplosbaar binnen de bestaande kaders van een open source BI-tool zoals Apache Superset of Metabase, mits de implementatie gefaseerd wordt uitgevoerd en eindgebruikers vroeg worden betrokken.
+De overige gaps (klachtenafhandeling, personalisatie, duurzaamheid, community) zijn oplosbaar binnen de kaders van de mobiele applicatie, mits de implementatie gefaseerd wordt uitgevoerd en eindgebruikers vroeg worden betrokken bij het ontwerp en de testfase.
 
-De verwachte tijdsbesparing van **~95% per rapportagecyclus** rechtvaardigt de investering zelfs bij een minimaal budget.
+De verwachte reductie van **~85% in handmatige klantafhandeling per servicecyclus** rechtvaardigt de investering, ook bij een gefaseerde uitrol.
+
+---
+
+## Bronvermelding
+
+### Opdracht & Casus
+
+- Hogeschool Utrecht. (2026). *Pakket/leverancier selectie & Implementatieplan*. Canvas HU. https://canvas.hu.nl/courses/50249/pages/pakket-slash-leverancier-selectie-and-implementatieplan
+
+### Interview
+
+- Manager IT & Financiën, The Chocolate Firm. (2026, 17 april). *Interview behoefteanalyse mobiele applicatie* [Persoonlijk interview]. Hogeschool Utrecht.
+
+### Requirements
+
+- Hogeschool Utrecht. (2026). *Requirements specificatie casus — Mobiele applicatie voor de Chocolate Firm*. Canvas HU.
